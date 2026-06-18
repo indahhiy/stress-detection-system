@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Student {
+  id        Int      @id @default(autoincrement())
+  name      String
+  nim       String
+  className String
+  project   String?
+  results   DiagnosisResult[]
+  createdAt DateTime @default(now())
+}
+
+model Symptom {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  question  String
+  category  String?
+  createdAt DateTime @default(now())
+}
+
+model DiagnosisResult {
+  id             Int      @id @default(autoincrement())
+  studentId      Int
+  student        Student  @relation(fields: [studentId], references: [id])
+  answers        Json
+  facts          Json
+  stressLevel    String
+  recommendation String   @db.Text
+  createdAt      DateTime @default(now())
+}
