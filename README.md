@@ -15,11 +15,12 @@ Project ini merupakan sistem berbasis pengetahuan untuk mendeteksi tingkat stres
 
 ### Frontend
 
-* React.js
-* Vite
-* Tailwind CSS
+* React.js (v19)
+* Vite (v8)
+* Tailwind CSS (v4)
+* Lucide React (Icons)
 
-> Catatan: Saat ini backend sudah selesai, frontend akan dikembangkan pada tahap berikutnya.
+> Catatan: Saat ini sistem backend dan frontend telah selesai dikembangkan sepenuhnya dengan fitur lengkap.
 
 ---
 
@@ -237,6 +238,34 @@ http://localhost:5000
 
 ---
 
+### 9. Jalankan Frontend
+
+Buka terminal baru, lalu masuk ke folder `frontend`:
+
+```bash
+cd frontend
+```
+
+Install dependensi frontend:
+
+```bash
+npm install
+```
+
+Jalankan frontend dalam mode development:
+
+```bash
+npm run dev
+```
+
+Frontend akan berjalan di:
+
+```txt
+http://localhost:5173 (atau http://localhost:5174 jika port 5173 sedang digunakan)
+```
+
+---
+
 ## Testing API
 
 ### Cek Backend
@@ -335,37 +364,20 @@ Sistem menghasilkan:
 
 ## Status Pengembangan
 
-### Sudah Selesai
+### Sudah Selesai (Fitur Lengkap)
 
-* Setup backend
-* Setup database Docker
-* Setup Prisma 7
-* Migration database
-* Seed 18 gejala
-* API gejala
-* API diagnosis
-* API riwayat diagnosis
-* API detail diagnosis
-* API dashboard statistik
-* Logic forward chaining
-* Penyimpanan hasil diagnosis
+* **Backend**:
+  * Setup server Node.js & Express.
+  * Setup database MySQL menggunakan Docker.
+  * Migrasi skema database via Prisma ORM.
+  * Seed data untuk 18 gejala stres awal.
+  * Endpoint API lengkap (`/api/symptoms`, `/api/diagnosis` [POST, GET, GET by ID], `/api/dashboard`).
+  * Mesin inferensi Forward Chaining untuk diagnosis berbasis aturan.
+* **Frontend**:
+  * Setup proyek React dengan Vite.
+  * Integrasi Tailwind CSS v4 untuk penataan gaya modern.
+  * Halaman Utama (Landing Page) yang informatif.
+  * Halaman Kuesioner dengan fungsionalitas tombol kembali (Back button) dan penyimpanan status pilihan jawaban.
+  * Halaman Detail Hasil dinamis (`/result/:id`) yang terintegrasi dengan database (tahan terhadap reload).
+  * Halaman Dashboard statistik yang menampilkan metrik total data, diagram batang visual tingkat stres, serta tabel riwayat interaktif dengan fitur pencarian.
 
-### Belum Selesai
-
-* UI React
-* Halaman landing page
-* Form data mahasiswa
-* Kuesioner 18 pertanyaan
-* Halaman hasil diagnosis
-* Dashboard admin
-
----
-
-## Rencana Pengembangan Selanjutnya
-
-* Membuat frontend React
-* Menampilkan pertanyaan dari API `/api/symptoms`
-* Mengirim jawaban ke API `/api/diagnosis`
-* Menampilkan hasil stres dan rekomendasi
-* Membuat dashboard statistik dari API `/api/dashboard`
-* Menampilkan riwayat diagnosis dari API `/api/diagnosis`

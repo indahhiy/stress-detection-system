@@ -3,12 +3,12 @@ const { diagnoseStress } = require("../services/forwardChaining.service");
 
 const createDiagnosis = async (req, res) => {
     try {
-        const { name, nim, className, project, answers } = req.body;
+        const { answers } = req.body;
 
-        if (!name || !nim || !className || !answers) {
+        if (!answers) {
             return res.status(400).json({
                 success: false,
-                message: "Nama, NIM, kelas, dan jawaban wajib diisi.",
+                message: "Jawaban kuesioner wajib diisi.",
             });
         }
 
@@ -16,10 +16,10 @@ const createDiagnosis = async (req, res) => {
 
         const student = await prisma.student.create({
             data: {
-                name,
-                nim,
-                className,
-                project,
+                name: "Anonim",
+                nim: "-",
+                className: "-",
+                project: "Proyek Kelompok",
             },
         });
 
@@ -99,9 +99,15 @@ const getDiagnosisDetail = async (req, res) => {
             });
         }
 
+        const diagnosis = diagnoseStress(result.answers);
+
         res.json({
             success: true,
-            data: result,
+            data: {
+                student: result.student,
+                result,
+                diagnosis,
+            },
         });
     } catch (error) {
         res.status(500).json({
