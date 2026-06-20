@@ -5,10 +5,11 @@ const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
 
 const adapter = new PrismaMariaDb({
     host: "127.0.0.1",
-    port: 3307,
+    port: 3306,
     user: "root",
-    password: "root",
-    database: "stress_detection_db",
+    // kalau password kosong, ganti dengan string kosong
+    password: process.env.DB_PASSWORD || "",
+    database: "stress_detection",
     connectionLimit: 5,
 });
 
