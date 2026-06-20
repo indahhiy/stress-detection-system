@@ -2,6 +2,14 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import asset1 from "../assets/asset1.png";
 
+// import all images from assets (Vite) so members can reference by filename
+const importedAssets = import.meta.glob("../assets/*.{png,jpg,jpeg,webp}", { eager: true });
+const imagesMap = {};
+for (const p in importedAssets) {
+    const name = p.split('/').pop();
+    imagesMap[name] = importedAssets[p].default;
+}
+
 function Home() {
     const navigate = useNavigate();
 
@@ -232,16 +240,24 @@ function Home() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         {[
-                            { name: "Andi Pratama", nim: "2100012345", role: "Lead AI Developer", initials: "AP" },
-                            { name: "Siti Aminah", nim: "2100012346", role: "UX Researcher", initials: "SA" },
-                            { name: "Budi Santoso", nim: "2100012347", role: "Data Analyst", initials: "BS" },
-                            { name: "Larasati Putri", nim: "2100012348", role: "Frontend Engineer", initials: "LP" },
+                            { name: "Friena Sellisya Saputri", nim: "231057020", role: "Lead AI Developer", initials: "AP", photo: "FRIENASS.jpeg" },
+                            { name: "nama 2", nim: "2100012346", role: "UX Researcher", initials: "SA" },
+                            { name: "nama 3", nim: "2100012347", role: "Data Analyst", initials: "BS" },
+                            { name: "nama 4", nim: "2100012348", role: "Frontend Engineer", initials: "LP" },
                         ].map((member, idx) => (
                             <div key={idx} className="bg-surface-container-low p-6 rounded-[28px] border border-outline-variant/20 hover:border-primary transition-all duration-300 group">
                                 <div className="flex items-center gap-4 mb-5">
-                                    <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-primary/10 text-primary font-bold text-base shadow-sm">
-                                        {member.initials}
-                                    </div>
+                                    {member.photo && imagesMap[member.photo] ? (
+                                        <img
+                                            src={imagesMap[member.photo]}
+                                            alt={member.name}
+                                            className="h-14 w-14 rounded-full object-cover shadow-sm"
+                                        />
+                                    ) : (
+                                        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-base shadow-sm">
+                                            {member.initials}
+                                        </div>
+                                    )}
                                     <div>
                                         <p className="text-xs uppercase tracking-[0.24em] text-primary/70">{member.role}</p>
                                         <h3 className="text-lg font-semibold text-on-surface mt-1">{member.name}</h3>
